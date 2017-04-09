@@ -29,8 +29,22 @@ const mutations = {
 }
 
 const actions = {
+  // set user info
+  setUserInfo ({ commit }, user) {
+    commit('SET_USER_INFO', user)
+    saveMulti([{
+      key: STORE_KEY_USERNAME,
+      value: user.username
+    }, {
+      key: STORE_KEY_ACCESS_TOKEN,
+      value: user.access_token // eslint-disable-line
+    }, {
+      key: STORE_KEY_REFRESH_TOKEN,
+      value: user.refresh_token // eslint-disable-line
+    }])
+  },
   // init user info
-  initUserInfo ({ commit, dispatch, state }) {
+  initUserInfo ({ commit, state }) {
     return new Promise((resolve, reject) => {
       // token
       if (username) {
@@ -46,7 +60,7 @@ const actions = {
     })
   },
   // login action
-  login ({ commit, dispatch }, payload) {
+  login ({ commit }, payload) {
     return new Promise((resolve, reject) => {
       login(payload.username, payload.password).then(data => {
         getUserInfo(data.token).then(user => {
@@ -72,7 +86,7 @@ const actions = {
     })
   },
   // refresh token action
-  refreToken ({ commit }, payload) {
+  refreshToken ({ commit }, payload) {
     commit('REFERE_TOKEN', payload)
     saveMulti([{
       key: STORE_KEY_ACCESS_TOKEN,

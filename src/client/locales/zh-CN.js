@@ -1,5 +1,6 @@
 export default {
-  title: 'XXX管理系统',
+  title: 'Dokku web system',
+  initialize: '初始化',
   constant: {
     name: '名称',
     desc: '描述'
@@ -48,7 +49,8 @@ export default {
     updated: '已保存更改',
     updateFailed: '更新失败',
     removed: '删除成功',
-    removeFailed: '删除失败'
+    removeFailed: '删除失败',
+    initializeFail: '初始化失败'
   },
   http: {
     error: {

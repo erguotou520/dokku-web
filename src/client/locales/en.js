@@ -1,5 +1,6 @@
 export default {
-  title: 'XXX Backend',
+  title: 'Dokku web system',
+  initialize: 'Initialize',
   constant: {
     name: 'Name',
     desc: 'Description'
@@ -44,7 +45,8 @@ export default {
     updated: 'Update successed',
     updateFailed: 'Update failed',
     removed: 'Delete successed',
-    removeFailed: 'Delete failed'
+    removeFailed: 'Delete failed',
+    initializeFail: 'Initialize failed'
   },
   http: {
     error: {

@@ -2,5 +2,6 @@
 node_modules/
 npm-debug.log
 dist
+pkg
 src/server/vendor/*
-!src/server/vendor/.gitkeep
+!src/server/vendor/manifest

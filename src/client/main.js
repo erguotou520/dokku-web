@@ -16,20 +16,21 @@ import './element-ui'
 // ajax
 import './http'
 
-const userPromise = store.dispatch('initUserInfo')
-routerHook(userPromise)
-
 // main component
 import App from './App'
 
-import './socket'
+// import './socket'
 
-userPromise.then(() => {
-  const app = new Vue({
-    router,
-    store,
-    ...App // Object spread copying everything from App.vue
+store.dispatch('fetchInitialize').then(res => {
+  const userPromise = store.dispatch('initUserInfo')
+  routerHook(userPromise)
+  userPromise.then(() => {
+    const app = new Vue({
+      router,
+      store,
+      ...App // Object spread copying everything from App.vue
+    })
+    // actually mount to DOM
+    app.$mount('app')
   })
-  // actually mount to DOM
-  app.$mount('app')
 })

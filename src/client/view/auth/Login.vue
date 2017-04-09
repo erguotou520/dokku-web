@@ -5,7 +5,7 @@
     <el-form ref="form" :model="form" :rules="rules"
       @submit.native.prevent="onSubmit">
       <el-form-item>
-        <el-select :value="globalConfig.lang" @input="changeLang(arguments[0])">
+        <el-select :value="globalConfig.lang" @input="changeLang(arguments[0])" style="width:100%">
           <el-option v-for="lang in globalConfig.langs" :key="lang.value"
             :label="lang.label" :value="lang.value"></el-option>
         </el-select>
@@ -17,16 +17,10 @@
         <el-input v-model="form.password" type="password" :placeholder="$t('login.password')"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button class="login-button" :class="{error: loginError}" type="success"
-          native-type="submit" :loading="loading">{{$t('login.button')}}</el-button>
+        <el-button class="login-button" :class="{error: loginError}" type="primary"
+          native-type="submit" :loading="loading">{{isInit?$t('initialize'):$t('login.button')}}</el-button>
       </el-form-item>
     </el-form>
-    <!-- <div class="lang">
-      <el-select :value="globalConfig.lang" @input="changeLang(arguments[0])">
-        <el-option v-for="lang in globalConfig.langs" :key="lang.value"
-          :label="lang.label" :value="lang.value"></el-option>
-      </el-select>
-    </div> -->
   </div>
 </template>
 <script>
@@ -53,33 +47,49 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['loggedIn', 'globalConfig'])
+    ...mapGetters(['loggedIn', 'globalConfig']),
+    isInit () {
+      return !!this.$route.meta.initialize
+    }
   },
   methods: {
-    ...mapActions(['login', 'changeLang']),
+    ...mapActions(['login', 'changeLang', 'initialize', 'setUserInfo']),
     onSubmit () {
       this.$refs.form.validate(valid => {
         if (valid) {
           this.loading = true
-          this.login({
-            username: this.form.username,
-            password: this.form.password
-          }).then((data) => {
-            this.loading = false
-            this.$router.push(this.$route.query.redirect || '/')
-          }).catch((err) => {
-            this.$notify({
-              title: this.$t('message.error'),
-              message: err.message || this.$t('login.authFail'),
-              type: 'error',
-              duration: 1500
+          if (this.isInit) {
+            // initialize app
+            this.initialize(this.form).then(data => {
+              this.setUserInfo({
+                _id: '1',
+                role: 'admin',
+                username: this.form.username,
+                access_token: data.token // eslint-disable-line
+              }).then(() => {
+                this.$router.push('/')
+              })
+            }).catch(res => {
+              this.$notify(res.message || this.$t('tips.initializeFail'))
             })
-            this.loading = false
-            this.loginError = true
-            setTimeout(() => {
-              this.loginError = false
-            }, 500)
-          })
+          } else {
+            this.login(this.form).then((data) => {
+              this.loading = false
+              this.$router.push(this.$route.query.redirect || '/')
+            }).catch((err) => {
+              this.$notify({
+                title: this.$t('message.error'),
+                message: err.message || this.$t('login.authFail'),
+                type: 'error',
+                duration: 1500
+              })
+              this.loading = false
+              this.loginError = true
+              setTimeout(() => {
+                this.loginError = false
+              }, 500)
+            })
+          }
         }
       })
     }
@@ -121,21 +131,4 @@ $input-width = 15rem
     width 100%
     &.error
       animation shake .5s
-  /*.lang
-    position fixed
-    right 1.5rem
-    bottom @right
-    width 5rem
-    .el-input__icon
-      display none
-    input
-      height 1.75rem
-      border none
-      padding-right 10px
-      text-align center
-      color $color-white-dark
-      background-color rgba(255,255,255,.4)
-      &:hover
-        color $color-white
-        background-color rgba(255,255,255,.25)*/
 </style>

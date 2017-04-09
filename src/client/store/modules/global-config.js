@@ -5,6 +5,7 @@ import { STORE_KEY_CONFIG_LANG, STORE_KEY_CONFIG_PAGE_LIMIT } from '../../consta
 
 const state = {
   lang: lang,
+  inited: false,
   // value see http://stackoverflow.com/questions/5580876/navigator-language-list-of-all-languages
   langs: [{
     label: '中文',
@@ -23,6 +24,9 @@ const mutations = {
   },
   UPDATE_LANG (state, lang) {
     state.lang = lang || state.lang
+  },
+  CHANGE_INITED (state, inited) {
+    state.inited = inited
   }
 }
 
@@ -40,12 +44,27 @@ const actions = {
     commit('UPDATE', config)
     save(STORE_KEY_CONFIG_LANG, state.lang)
     save(STORE_KEY_CONFIG_PAGE_LIMIT, state.pageLimit)
+  },
+  fetchInitialize ({ commit }) {
+    return Vue.http.get('initialize').then(res => {
+      commit('CHANGE_INITED', res.data)
+      return res.data
+    })
+  },
+  initialize ({ commit }, form) {
+    return Vue.http.post('initialize', form).then(res => {
+      commit('CHANGE_INITED', true)
+      return res.data
+    })
   }
 }
 
 const getters = {
   globalConfig (state) {
     return state
+  },
+  systemInited (state) {
+    return state.inited
   }
 }
 

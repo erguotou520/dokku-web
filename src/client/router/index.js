@@ -8,6 +8,15 @@ import otherModuleRoutes from './module'
 Vue.use(VueRouter)
 
 const routes = [{
+  path: '/initialize',
+  component: (resolve) => {
+    import('../view/auth/Login.vue').then(resolve)
+  },
+  meta: {
+    skipAuth: true,
+    initialize: true
+  }
+}, {
   path: '/login',
   component: (resolve) => {
     import('../view/auth/Login.vue').then(resolve)
@@ -44,6 +53,9 @@ export function hook (userPromise) {
   router.beforeEach((to, from, next) => {
     // 确保用户身份信息已获取
     userPromise.then(() => {
+      if (!store.getters.systemInited && to.path !== '/initialize') {
+        return next('/initialize')
+      }
       store.dispatch('changeRouteLoading', true).then(() => {
         // has logged in, reject
         if (to.path === '/login' && store.getters.loggedIn) {

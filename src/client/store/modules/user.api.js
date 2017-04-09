@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import { authSocket } from '../../socket'
+// import { authSocket } from '../../socket'
 
 export function login (username, password) {
-  return Vue.http.post('auth/local', {
+  return Vue.http.post('auth/login', {
     username,
     password
   }).then(res => res.json())
@@ -15,9 +15,9 @@ export function getUserInfo (token) {
         'Authorization': `Bearer ${token}`
       }
     }).then(data => data.json()).then(data => {
-      authSocket(token, () => {
-        console.log('Token authenticated.')
-      })
+      // authSocket(token, () => {
+      //   console.log('Token authenticated.')
+      // })
       resolve(data)
     }).catch(() => {
       resolve({})
