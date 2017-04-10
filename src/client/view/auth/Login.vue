@@ -37,9 +37,13 @@ export default {
       rules: {
         username: [{
           required: true, message: this.$t('login.username'), trigger: 'blur'
+        }, {
+          min: 3, message: this.$t('login.msg.usernameMinlength', { min: 3 }), trigger: 'blur'
         }],
         password: [{
           required: true, message: this.$t('login.password'), trigger: 'blur'
+        }, {
+          min: 3, message: this.$t('login.msg.passwordMinlength', { min: 3 }), trigger: 'blur'
         }]
       },
       loading: false,
@@ -62,15 +66,16 @@ export default {
             // initialize app
             this.initialize(this.form).then(data => {
               this.setUserInfo({
-                _id: '1',
+                id: '1',
                 role: 'admin',
                 username: this.form.username,
                 access_token: data.token // eslint-disable-line
               }).then(() => {
+                this.$notify(this.$t('tips.initializeCompleted'))
                 this.$router.push('/')
               })
             }).catch(res => {
-              this.$notify(res.message || this.$t('tips.initializeFail'))
+              this.$notify(res.message || this.$t('tips.initializeFailed'))
             })
           } else {
             this.login(this.form).then((data) => {

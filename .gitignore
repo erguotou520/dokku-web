@@ -1,7 +1,11 @@
 .DS_Store
+.idea
+tmp
+storage.db
 node_modules/
 npm-debug.log
 dist
 pkg
+bin
 src/server/vendor/*
 !src/server/vendor/manifest

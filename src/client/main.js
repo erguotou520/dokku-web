@@ -22,8 +22,9 @@ import App from './App'
 // import './socket'
 
 store.dispatch('fetchInitialize').then(res => {
-  const userPromise = store.dispatch('initUserInfo')
+  const userPromise = res ? store.dispatch('initUserInfo') : Promise.resolve()
   routerHook(userPromise)
+
   userPromise.then(() => {
     const app = new Vue({
       router,

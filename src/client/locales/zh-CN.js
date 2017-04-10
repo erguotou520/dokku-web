@@ -1,6 +1,10 @@
 export default {
   title: 'Dokku web system',
   initialize: '初始化',
+  tips: {
+    initializeCompleted: '已完成初始化',
+    initializeFailed: '初始化失败'
+  },
   constant: {
     name: '名称',
     desc: '描述'

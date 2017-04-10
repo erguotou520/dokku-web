@@ -9,7 +9,7 @@
         <el-button type="primary" icon="plus" @click.native="createUser">{{$t('operation.create')}}</el-button>
       </div>
       <el-table :data="users" border height="100%">
-        <el-table-column property="_id" label="ID" sortable min-width="120"></el-table-column>
+        <el-table-column property="id" label="ID" sortable min-width="120"></el-table-column>
         <el-table-column property="username" :label="$t('user.model.username')" sortable min-width="120"></el-table-column>
         <el-table-column property="role" :label="$t('user.model.role')" min-width="90"></el-table-column>
         <el-table-column :label="$t('operation.operation')" align="center" width="120">
@@ -104,7 +104,7 @@ export default {
       this.$confirm(`This action will remove the selected user: ${user.username} forever, still going on?`, this.$t('confirm.title'), {
         type: 'warning'
       }).then(() => {
-        userRes.delete({ _id: user._id }).then(() => {
+        userRes.delete({ id: user.id }).then(() => {
           this.$message({
             type: 'success',
             message: this.$t('message.removed')

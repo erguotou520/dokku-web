@@ -6,7 +6,7 @@ import { username, access_token, refresh_token } from '../../stored'
 import { STORE_KEY_USERNAME, STORE_KEY_ACCESS_TOKEN, STORE_KEY_REFRESH_TOKEN } from '../../constants'
 
 const state = {
-  _id: '',
+  id: '',
   role: 'guest',
   username: username,
   access_token, // eslint-disable-line
@@ -20,7 +20,7 @@ const mutations = {
   },
   // after logout
   LOGOUT (state) {
-    state._id = ''
+    state.id = ''
     state.username = ''
     state.role = 'guest'
     state.access_token = '' // eslint-disable-line
@@ -49,7 +49,7 @@ const actions = {
       // token
       if (username) {
         getUserInfo(state.access_token).then(data => { // eslint-disable-line
-          if (data._id) {
+          if (data.id) {
             commit('SET_USER_INFO', data)
           }
           resolve(data)
@@ -105,7 +105,7 @@ const actions = {
 
 const getters = {
   userId (state) {
-    return state._id
+    return state.id
   },
   userRole (state) {
     return state.role

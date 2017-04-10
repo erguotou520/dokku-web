@@ -3,28 +3,22 @@ package routers
 import (
 	"github.com/labstack/echo"
 	"net/http"
-	"os"
 )
 
-type Token struct {
-	Token string `json:"token"`
+// User user model
+type User struct {
+	Username string `json:"username" form:"username" validate:"required"`
+	Password string `json:"password" form:"password" validate:"required"`
 }
 
+// Setup setup router
 func Setup(e *echo.Echo) {
-	secret := os.Getenv("SECRET")
-	if secret == "" {
-		secret = "sdfgsdfg7867df6asdfas"
-	}
 	// get app initialization status
-	e.GET("/api/initialize", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, false)
-	})
+	e.GET("/api/initialize", fetchInitialize)
 	// initialize app
-	e.POST("/api/initialize", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, &Token{
-			Token: "aa",
-		})
-	})
+	e.POST("/api/initialize", doInitialize)
+	// get user me
+	e.GET("/api/me", me)
 	// login auth
 	e.POST("/api/auth/login", func(c echo.Context) error {
 		// username := c.FormValue("username")

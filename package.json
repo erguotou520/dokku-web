@@ -16,7 +16,7 @@
   "private": false,
   "scripts": {
     "client": "node build/dev-server.js",
-    "server": "go run src/server/main.go",
+    "server": "fresh -c runner.conf",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src/client"
   },
