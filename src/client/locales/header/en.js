@@ -1,5 +1,6 @@
 export default {
   header: {
+    searchTip: 'Jump to your app',
     settings: 'User settings',
     password: 'Password',
     logout: 'Logout',

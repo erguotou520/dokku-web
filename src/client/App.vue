@@ -1,29 +1,22 @@
 <template>
   <div id="app-main">
-    <nav-menu></nav-menu>
-    <div class="app-wrapper">
-      <x-header></x-header>
-      <div class="app-container" :class="{active: loggedIn}">
-        <!-- <router-loading></router-loading> -->
-        <router-view></router-view>
-      </div>
+    <x-header></x-header>
+    <div class="app-container">
+      <top-nav></top-nav>
+      <!-- <router-loading></router-loading> -->
+      <router-view></router-view>
     </div>
   </div>
 </template>
 <script>
 import Vue from 'vue'
 import XHeader from './components/Header'
-import NavMenu from './components/NavMenu'
+import TopNav from './components/TopNav'
 import ContentModule from './components/ContentModule'
-import { mapGetters } from 'vuex'
 Vue.component('ContentModule', ContentModule)
 export default {
-  computed: {
-    ...mapGetters(['loggedIn'])
-  },
   components: {
-    XHeader,
-    NavMenu
+    XHeader, TopNav
   }
 }
 </script>
@@ -59,26 +52,16 @@ body
 a
   text-decoration none
 #app-main
-  display flex
+  min-height 100vh
+  .app-container
+    position relative
+    min-height calc(100vh - 3.5rem)
+    background-color #fff
+    overflow auto
+.limit-width
   width 100%
-  height 100vh
-  .app-wrapper
-    flex 1
-    display flex
-    flex-flow column
-    overflow-x hidden
-    .app-container
-      position relative
-      flex 1
-      display flex
-      justify-content center
-      margin 0
-      padding 1rem
-      background-color #fff
-      overflow auto
-      &.active
-        margin 1rem
-
+  max-width 75rem
+  margin 0 auto
 .el-dropdown-link
   cursor pointer
 </style>

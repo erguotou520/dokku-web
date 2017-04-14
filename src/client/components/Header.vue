@@ -1,7 +1,11 @@
 <template>
   <transition name="header">
-    <header id="header" v-if="loggedIn">
-      <h1></h1>
+    <header id="header" class="flex flex-between flex-cross-center" v-if="loggedIn">
+      <h1 class="flex flex-cross-center">
+        <img class="logo" src="../assets/images/dokku.png">
+        Dokku web
+      </h1>
+      <el-input class="global-search" v-model="search" :placeholder="$t('header.searchTip')">{{$t('header.search')}}</el-input>
       <div class="nav" v-if="loggedIn">
         <el-dropdown trigger="click">
           <span class="el-dropdown-link">
@@ -75,6 +79,7 @@ export default {
   locales,
   data () {
     return {
+      search: '',
       config: {
         visible: false,
         form: {
@@ -180,22 +185,31 @@ export default {
 .header-leave-active
   margin-top -($header-height)
 #header
-  display flex
-  flex-direction row
-  align-items center
-  justify-content space-between
+  position relative
+  height 3.5rem
   padding 0 1rem
   background-color $color-white
+  box-shadow 0px 4px 4px rgba($color-primary,0.1)
+  &::after
+    content ''
+    position absolute
+    left 0
+    bottom 0
+    width 100%
+    height 3px
+    background linear-gradient(to right, #07cbcf, #f15b55)
   h1
-    float left
-    height $header-height
-    line-height @height
     margin 0
     font-weight normal
+    font-size 20px
+    img
+      height 2.5rem
+      margin-right .5rem
     > a
       color #fff
+  .global-search
+    width 25%
   .nav
-    float right
     margin 0
     padding 0
 </style>
