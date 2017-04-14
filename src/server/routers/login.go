@@ -14,7 +14,10 @@ func login(c echo.Context) error {
 		fmt.Println(err)
 		return c.NoContent(http.StatusUnauthorized)
 	}
-	stored := store.Read()
+	stored, e := store.Read()
+	if e != nil {
+		return c.NoContent(http.StatusForbidden)
+	}
 	if u.Username != stored.Username {
 		// fmt.Println("user %s not allowed", u.Username)
 		return c.NoContent(http.StatusUnauthorized)

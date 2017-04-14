@@ -65,17 +65,19 @@ export default {
           if (this.isInit) {
             // initialize app
             this.initialize(this.form).then(data => {
-              this.setUserInfo({
+              return this.setUserInfo({
                 id: '1',
                 role: 'admin',
                 username: this.form.username,
                 access_token: data.token // eslint-disable-line
               }).then(() => {
-                this.$notify(this.$t('tips.initializeCompleted'))
+                this.$notify.success(this.$t('tips.initializeCompleted'))
                 this.$router.push('/')
               })
             }).catch(res => {
-              this.$notify(res.message || this.$t('tips.initializeFailed'))
+              this.$notify.error(res.message || this.$t('tips.initializeFailed'))
+            }).then(() => {
+              this.loading = false
             })
           } else {
             this.login(this.form).then((data) => {

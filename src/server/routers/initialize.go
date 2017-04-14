@@ -9,7 +9,12 @@ import (
 )
 
 func fetchInitialize(c echo.Context) error {
-	return c.JSON(http.StatusOK, false)
+	config, e := store.Read()
+	var inited = false
+	if e == nil && config.Username != "" && config.HashedPassword != "" {
+		inited = true
+	}
+	return c.JSON(http.StatusOK, inited)
 }
 
 func doInitialize(c echo.Context) error {

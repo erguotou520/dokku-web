@@ -16,5 +16,5 @@ func sign(username string) (string, error) {
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
 	// Generate encoded token and send it as response.
-	return token.SignedString([]byte(config.SECRET))
+	return token.SignedString([]byte(config.Secret))
 }

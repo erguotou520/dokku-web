@@ -45,8 +45,10 @@ func Update(config Config) {
 		// file not existed
 		fmt.Println("db file not existed")
 	} else {
-		c := Read()
-		c.Update(config)
+		c, e := Read()
+		if e == nil {
+			c.Update(config)
+		}
 	}
 	s, _ := json.Marshal(config)
 	e := ioutil.WriteFile(dbPath, s, 0644)
@@ -54,10 +56,15 @@ func Update(config Config) {
 }
 
 // Read config
-func Read() Config {
+func Read() (Config, error) {
 	raw, err := ioutil.ReadFile(dbPath)
-	check(err)
 	config := Config{}
-	json.Unmarshal(raw, &config)
-	return config
+	if err != nil {
+		return config, err
+	}
+	e := json.Unmarshal(raw, &config)
+	if e != nil {
+		return config, e
+	}
+	return config, nil
 }

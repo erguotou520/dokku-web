@@ -1,10 +1,17 @@
 package config
 
 import (
-  "os"
+	"os"
 )
-const envSecret = os.Getenv("SECRET")
-const (
-	// SECRET encrypt secret
-	SECRET = envSecret != nil ? envSecret : "as8asdf9sdgsd"
+
+var (
+	// Secret jwt sign secret
+	Secret = "asdfasd&sdfa(66)"
 )
+
+func init() {
+	secret := os.Getenv("SECRET")
+	if secret != "" {
+		Secret = secret
+	}
+}
