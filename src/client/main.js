@@ -12,7 +12,6 @@ sync(store, router)
 
 // ui library
 import './element-ui'
-import './assets/octions'
 // ajax
 import './http'
 

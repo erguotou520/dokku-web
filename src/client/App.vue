@@ -13,7 +13,10 @@ import Vue from 'vue'
 import XHeader from './components/Header'
 import TopNav from './components/TopNav'
 import ContentModule from './components/ContentModule'
+import Octicon from './components/Octicon'
+import './components/octicons'
 Vue.component('ContentModule', ContentModule)
+Vue.component('Octicon', Octicon)
 export default {
   components: {
     XHeader, TopNav

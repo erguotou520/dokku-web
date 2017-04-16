@@ -2,7 +2,7 @@
   <div class="ui-top-nav flex">
     <div class="limit-width flex flex-1 flex-cross-center flex-between">
       <div class="breadcrumb flex flex-cross-center">
-        <oction name="apps"></oction>Apps
+        <span class="iconfont dokkuicon-apps"></span>Apps
       </div>
       <el-button name="plus">New</el-button>
     </div>
