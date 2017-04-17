@@ -1,6 +1,6 @@
 <template>
   <svg version="1.1" :class="clazz" :role="label ? 'img' : 'presentation'" :aria-label="label" :x="x" :y="y" :width="width" :height="height" :view-box.camel="box" :style="style">
-    <slot><path v-if="icon" :d="icon.d" /></slot>
+    <slot><path v-if="icon" :d="icon.d" :fill="fill"/></slot>
   </svg>
 </template>
 
@@ -41,8 +41,7 @@
 </style>
 
 <script>
-const icons = {}
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'octicon',
   props: {
@@ -50,6 +49,7 @@ export default {
       type: String,
       required: true
     },
+    fill: String,
     scale: [Number, String],
     spin: Boolean,
     inverse: Boolean,
@@ -58,7 +58,9 @@ export default {
         return val === 'horizontal' || val === 'vertical'
       }
     },
-    label: String
+    label: String,
+    w: Number,
+    h: Number
   },
   data () {
     return {
@@ -70,6 +72,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['octiconIcons']),
     normalizedScale () {
       let scale = this.scale
       scale = typeof scale === 'undefined' ? 1 : Number(scale)
@@ -90,7 +93,7 @@ export default {
     },
     icon () {
       if (this.name) {
-        return icons[this.name]
+        return this.octiconIcons[this.name]
       }
       return null
     },
@@ -104,10 +107,10 @@ export default {
       return `0 0 ${this.width} ${this.height}`
     },
     width () {
-      return this.childrenWidth || this.icon && this.icon.width * this.normalizedScale || 0
+      return this.w || this.childrenWidth || this.icon && this.icon.width * this.normalizedScale || 0
     },
     height () {
-      return this.childrenHeight || this.icon && this.icon.height * this.normalizedScale || 0
+      return this.h || this.childrenHeight || this.icon && this.icon.height * this.normalizedScale || 0
     },
     style () {
       if (this.normalizedScale === 1) {
@@ -137,12 +140,6 @@ export default {
       child.x = (width - child.width) / 2
       child.y = (height - child.height) / 2
     })
-  },
-  register (data) {
-    for (const name in data) {
-      icons[name] = data[name]
-    }
-  },
-  icons
+  }
 }
 </script>

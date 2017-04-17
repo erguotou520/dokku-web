@@ -1,12 +1,12 @@
 <template>
   <transition name="header">
-    <header id="header" class="flex flex-between flex-cross-center" v-if="loggedIn">
+    <header id="header" class="flex flex-between flex-cross-center">
       <h1 class="flex flex-cross-center">
         <img class="logo" src="../assets/images/dokku.png">
         Dokku web
       </h1>
       <el-input class="global-search" v-model="search" :placeholder="$t('header.searchTip')">{{$t('header.search')}}</el-input>
-      <div class="nav" v-if="loggedIn">
+      <div class="nav">
         <el-dropdown trigger="click">
           <span class="el-dropdown-link">
             <span class="iconfont icon-user" style="margin-right:2px;vertical-align:middle;"></span>
@@ -123,7 +123,6 @@ export default {
   computed: {
     ...mapGetters([
       'username',
-      'loggedIn',
       'userId',
       'globalConfig'
     ])

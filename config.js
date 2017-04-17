@@ -11,7 +11,7 @@ var development = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': { target: 'http://localhost:8000', changeOrigin: true },
+      '/api': { target: 'http://192.168.0.111:8000', changeOrigin: true },
       '/socket.io': { target: 'http://localhost:8000', changeOrigin: true, ws: true }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

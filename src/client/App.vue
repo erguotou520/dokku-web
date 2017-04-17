@@ -1,25 +1,31 @@
 <template>
   <div id="app-main">
-    <x-header></x-header>
-    <div class="app-container">
-      <top-nav></top-nav>
+    <x-header v-if="loggedIn"></x-header>
+    <div class="app-container flex flex-column flex-main-center flex-cross-center" :class="{active:loggedIn}">
+      <top-nav v-if="loggedIn"></top-nav>
       <!-- <router-loading></router-loading> -->
       <router-view></router-view>
     </div>
+    <footer-bar v-if="loggedIn"></footer-bar>
   </div>
 </template>
 <script>
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 import XHeader from './components/Header'
 import TopNav from './components/TopNav'
+import FooterBar from './components/FooterBar'
 import ContentModule from './components/ContentModule'
 import Octicon from './components/Octicon'
 import './components/octicons'
 Vue.component('ContentModule', ContentModule)
 Vue.component('Octicon', Octicon)
 export default {
+  computed: {
+    ...mapGetters(['loggedIn'])
+  },
   components: {
-    XHeader, TopNav
+    XHeader, TopNav, FooterBar
   }
 }
 </script>
@@ -58,9 +64,11 @@ a
   min-height 100vh
   .app-container
     position relative
-    min-height calc(100vh - 3.5rem)
+    min-height 100vh
     background-color #fff
     overflow auto
+    &.active
+      min-height calc(100vh - 6.625rem)
 .limit-width
   width 100%
   max-width 75rem

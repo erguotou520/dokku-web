@@ -9,7 +9,6 @@ import (
 
 func me(c echo.Context) error {
 	user := c.Get("user").(*jwt.Token)
-	fmt.Println(user)
 	claims := user.Claims.(jwt.MapClaims)
 	name := claims["name"].(string)
 	return c.String(http.StatusOK, "Welcome "+name+"!")

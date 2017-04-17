@@ -22,6 +22,5 @@ func GenerateSalt() []byte {
 // EncryptPassword encrypt password with salt
 func EncryptPassword(pwd string, salt []byte) string {
 	dk := pbkdf2.Key([]byte(pwd), salt, 4096, 32, sha1.New)
-	fmt.Println(dk)
 	return fmt.Sprintf("%x", dk)
 }

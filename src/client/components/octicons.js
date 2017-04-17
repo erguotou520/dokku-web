@@ -1,6 +1,6 @@
-import Octicon from 'vue-octicon/components/Octicon.vue'
+import store from '../store'
 
-Octicon.register({
+store.dispatch('registerOcticon', {
   build: {
     width: 1024,
     height: 1024,
