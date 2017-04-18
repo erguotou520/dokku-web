@@ -4,37 +4,37 @@ export default [{
     import('../view/Dashboard.vue').then(resolve)
   }
 }, {
-  path: '/create',
+  path: '/app-create',
   component: resolve => {
-    import('../view/Create.vue').then(resolve)
+    import('../view/NewApp.vue').then(resolve)
   }
 }, {
-  path: '/app/:name',
+  path: '/apps/:name',
   component: resolve => {
     import('../view/app/App.vue').then(resolve)
   },
   children: [{
-    path: '/overview',
+    path: 'overview',
     component: resolve => {
       import('../view/app/Overview.vue').then(resolve)
     }
   }, {
-    path: '/resources',
+    path: 'resources',
     component: resolve => {
       import('../view/app/Resources.vue').then(resolve)
     }
   }, {
-    path: '/deploy',
+    path: 'deploy',
     component: resolve => {
       import('../view/app/Deploy.vue').then(resolve)
     }
   }, {
-    path: '/activities',
+    path: 'activities',
     component: resolve => {
       import('../view/app/Activities.vue').then(resolve)
     }
   }, {
-    path: '/settings',
+    path: 'settings',
     component: resolve => {
       import('../view/app/Settings.vue').then(resolve)
     }

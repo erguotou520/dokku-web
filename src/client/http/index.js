@@ -4,7 +4,7 @@ import router from '../router'
 import VueResource from 'vue-resource'
 import { Message } from 'element-ui'
 Vue.use(VueResource)
-// Vue.http.options.emulateJSON = true
+Vue.http.options.emulateJSON = true
 Vue.http.options.root = '/api'
 
 const requestMap = {}

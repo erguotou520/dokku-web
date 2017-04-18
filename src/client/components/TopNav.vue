@@ -4,7 +4,7 @@
       <div class="breadcrumb flex flex-cross-center">
         <octicon class="icon" name="apps" :w="16" :h="16" fill="#07cbcf"></octicon>Apps
       </div>
-      <el-button name="plus">New</el-button>
+      <el-button name="plus" @click.native="$router.push('/app-create')">New</el-button>
     </div>
   </div>
 </template>

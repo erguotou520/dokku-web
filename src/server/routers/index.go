@@ -3,6 +3,7 @@ package routers
 import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"os/exec"
 	"server/config"
 )
 
@@ -12,10 +13,20 @@ type User struct {
 	Password string `json:"password" form:"password" validate:"required"`
 }
 
+var (
+	// DokkuPath dokku bin path
+	DokkuPath = ""
+)
+
 // Setup setup router
 func Setup(e *echo.Echo) {
 	// api group
 	apiG := e.Group("/api")
+	path, err := exec.LookPath("dokku")
+	if err != nil {
+		panic(err)
+	}
+	DokkuPath = path
 	apiG.Use(middleware.JWTWithConfig(middleware.JWTConfig{
 		SigningKey: []byte(config.Secret),
 		ContextKey: "user",
@@ -34,4 +45,22 @@ func Setup(e *echo.Echo) {
 	apiG.GET("/users/me", me)
 	// login auth
 	apiG.POST("/auth/login", login)
+
+	// app apis
+	// list apps
+	apiG.GET("/apps", appList)
+	// create app
+	apiG.POST("/apps", createApp)
+	// rename app
+	apiG.PUT("/apps/:name", renameApp)
+	// destroy app
+	apiG.DELETE("/apps/:name", destroyApp)
+
+	// plugin apis
+	// add a plugin
+	apiG.POST("/plugins", addPlugin)
+	// disable|enable|update a plugin
+	apiG.PUT("/plugins/:name", updatePlugin)
+	// remove a plugin
+	apiG.DELETE("/plugins/:name", removePlugin)
 }

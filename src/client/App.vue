@@ -2,7 +2,7 @@
   <div id="app-main">
     <x-header v-if="loggedIn"></x-header>
     <div class="app-container flex flex-column flex-main-center flex-cross-center" :class="{active:loggedIn}">
-      <top-nav v-if="loggedIn"></top-nav>
+      <top-nav v-if="loggedIn&&!$route.meta[404]"></top-nav>
       <!-- <router-loading></router-loading> -->
       <router-view></router-view>
     </div>

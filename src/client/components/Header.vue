@@ -1,7 +1,7 @@
 <template>
   <transition name="header">
     <header id="header" class="flex flex-between flex-cross-center">
-      <h1 class="flex flex-cross-center">
+      <h1 class="flex flex-cross-center" @click="$router.push('/')" style="cursor:pointer">
         <img class="logo" src="../assets/images/dokku.png">
         Dokku web
       </h1>

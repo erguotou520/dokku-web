@@ -1,7 +1,6 @@
 package routers
 
 import (
-	"fmt"
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 	"net/http"
