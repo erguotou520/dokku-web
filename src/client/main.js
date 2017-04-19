@@ -21,7 +21,7 @@ import App from './App'
 // import './socket'
 
 store.dispatch('fetchInitialize').then(res => {
-  const userPromise = res ? store.dispatch('initUserInfo') : Promise.resolve()
+  const userPromise = res ? store.dispatch('initUserInfo') : store.dispatch('logout')
   routerHook(userPromise)
 
   userPromise.then(() => {

@@ -17,7 +17,10 @@ export default {
     deploy: {
       repo: '仓库来源',
       tipLabel: '使用Dokku Git作为仓库地址',
-      tipDesc: ''
+      tipDesc: '',
+      dokkuGit: 'Git仓库地址 ',
+      fromEmpty: '创建一个新的项目',
+      fromExisted: '从已有的项目开始'
     }
   }
 }

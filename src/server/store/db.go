@@ -14,10 +14,14 @@ type Config struct {
 	Salt           []byte
 	HashedPassword string
 	Role           string
+	Domain         string
 }
 
 // Update update config from other
 func (c *Config) Update(s Config) {
+	if s.ID != 0 {
+		c.ID = s.ID
+	}
 	if s.Username != "" {
 		c.Username = s.Username
 	}
@@ -26,6 +30,12 @@ func (c *Config) Update(s Config) {
 	}
 	if s.HashedPassword != "" {
 		c.HashedPassword = s.HashedPassword
+	}
+	if s.Role != "" {
+		c.Role = s.Role
+	}
+	if s.Domain != "" {
+		c.Domain = s.Domain
 	}
 }
 

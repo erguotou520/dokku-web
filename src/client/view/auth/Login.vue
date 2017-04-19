@@ -10,6 +10,9 @@
             :label="lang.label" :value="lang.value"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item prop="domain" v-if="isInit">
+        <el-input v-model="form.domain" :placeholder="$t('login.domain')"></el-input>
+      </el-form-item>
       <el-form-item prop="username">
         <el-input v-model="form.username" :placeholder="$t('login.username')"></el-input>
       </el-form-item>
@@ -35,6 +38,17 @@ export default {
         password: ''
       },
       rules: {
+        domain: [{
+          required: true, message: this.$t('login.domain'), trigger: 'blur'
+        }, {
+          validator (rule, val, cb) {
+            if (/[a-zA-Z\.]+/.test(val)) {
+              cb()
+            } else {
+              cb(rule.message)
+            }
+          }, message: this.$t('login.login.msg.domain'), trigger: 'blur'
+        }],
         username: [{
           required: true, message: this.$t('login.username'), trigger: 'blur'
         }, {
