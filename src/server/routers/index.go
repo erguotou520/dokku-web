@@ -9,8 +9,9 @@ import (
 
 // User user model
 type User struct {
-	Username string `json:"username" form:"username" validate:"required"`
-	Password string `json:"password" form:"password" validate:"required"`
+	Username string `json:"username" form:"username"`
+	Password string `json:"password" form:"password"`
+	Domain   string `json:"domain" form:"domain"`
 }
 
 var (
@@ -55,6 +56,8 @@ func Setup(e *echo.Echo) {
 	apiG.PUT("/apps/:name", renameApp)
 	// destroy app
 	apiG.DELETE("/apps/:name", destroyApp)
+	// operate app
+	apiG.PUT("/apps/ps/:name", actionApp)
 
 	// plugin apis
 	// add a plugin

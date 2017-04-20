@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo"
 	"net/http"
+	"os/exec"
 	"server/store"
 	"server/utils"
 )
@@ -23,6 +24,16 @@ func doInitialize(c echo.Context) error {
 		fmt.Println(err)
 		return c.NoContent(http.StatusUnauthorized)
 	}
+	if u.Username == "" || u.Password == "" || u.Domain == "" {
+		return c.NoContent(http.StatusBadRequest)
+	}
+	exec.Command(DokkuPath, "domains:clear")
+	_, e := exec.Command(DokkuPath, "domains:set-global", u.Domain).Output()
+	if e != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{
+			"message": "Set global domain failed",
+		})
+	}
 	// encrypt password
 	salt := utils.GenerateSalt()
 	ePwd := utils.EncryptPassword(u.Password, salt)
@@ -32,6 +43,7 @@ func doInitialize(c echo.Context) error {
 		Salt:           salt,
 		HashedPassword: ePwd,
 		Role:           "admin",
+		Domain:         u.Domain,
 	})
 
 	t, err := sign(u.Username)

@@ -127,6 +127,23 @@ func renameApp(c echo.Context) error {
 	return c.NoContent(http.StatusInternalServerError)
 }
 
+// start an app
+func actionApp(c echo.Context) error {
+	name := c.Param("name")
+	action := c.FormValue("action")
+	out, err := exec.Command(DokkuPath, "ps:"+action, name).Output()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+	done, _ := regexp.MatchString("done$", strings.TrimRight(string(out), "\r\n"))
+	if done {
+		return c.NoContent(http.StatusOK)
+	}
+	return c.JSON(http.StatusInternalServerError, map[string]string{
+		"message": string(out),
+	})
+}
+
 // set env variables
 func configEnv(c echo.Context) error {
 	form := new(EnvForm)
