@@ -9,6 +9,7 @@ const state = {
   id: '',
   role: 'guest',
   username: username,
+  domain: '',
   access_token, // eslint-disable-line
   refresh_token // eslint-disable-line
 }
@@ -49,9 +50,7 @@ const actions = {
       // token
       if (username) {
         getUserInfo(state.access_token).then(data => { // eslint-disable-line
-          if (data.id) {
-            commit('SET_USER_INFO', data)
-          }
+          commit('SET_USER_INFO', data)
           resolve(data)
         }).catch(err => { reject(err) })
       } else {
@@ -106,6 +105,9 @@ const actions = {
 const getters = {
   userId (state) {
     return state.id
+  },
+  globalDomain (state) {
+    return state.domain
   },
   userRole (state) {
     return state.role

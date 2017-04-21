@@ -1,22 +1,19 @@
 <template>
   <div class="m-app-deploy">
     <el-row :gutter="20">
-      <el-col :span="4">
+      <el-col :span="6" :offset="4">
         <h4>{{$t('app.deploy.repo')}}</h4>
       </el-col>
-      <el-col :span="8">
-        <el-radio-group v-model="selectedRepo">
-          <el-radio-button label="dokku">Dokku Git</el-radio-button>
-          <el-radio-button label="github">GitHub</el-radio-button>
-        </el-radio-group>
+      <el-col :span="14">
+        <p>Dokku Git</p>
       </el-col>
     </el-row>
     <el-row :gutter="20">
-      <el-col :span="4">
+      <el-col :span="6" :offset="4">
         <h4>{{$t('app.deploy.tipLabel')}}</h4>
       </el-col>
-      <el-col :span="8">
-        <p>{{$t('app.deploy.dokkuGit')}}<el-input :value="repoUrl" readonly></el-input></p>
+      <el-col :span="14">
+        <p>{{$t('app.deploy.dokkuGit')}}<el-input :value="repoUrl" readonly class="repo-url-input"></el-input></p>
         <p>{{$t('app.deploy.fromEmpty')}}</p>
         <pre><code>echo "# 123" >> README.md
 git init
@@ -32,19 +29,28 @@ git push -u dokku master</code></pre>
   </div>
 </template>
 <script>
+import locales from 'locales/apps'
 export default {
+  locales,
   data () {
     return {
-      selectedRepo: 'dokku'
     }
   },
   computed: {
     repoUrl () {
-      return `dokku@dokku.me:${this.$route.params.name}`
+      return `dokku@${this.$store.getters.globalDomain}:${this.$route.params.name}`
     }
   }
 }
 </script>
 <style lang="stylus">
-/*.m-app-deploy*/
+.m-app-deploy
+  .repo-url-input
+    width auto
+    margin-left .5rem
+    > input
+      padding 0 6px
+      height 28px
+      line-height @height
+      border-radius 2px
 </style>

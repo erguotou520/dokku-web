@@ -9,6 +9,8 @@ import (
 func me(c echo.Context) error {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
-	name := claims["name"].(string)
-	return c.String(http.StatusOK, "Welcome "+name+"!")
+	domain := claims["domain"].(string)
+	return c.JSON(http.StatusOK, map[string]string{
+		"domain": domain,
+	})
 }

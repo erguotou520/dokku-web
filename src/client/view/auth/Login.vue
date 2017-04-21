@@ -83,6 +83,7 @@ export default {
                 id: '1',
                 role: 'admin',
                 username: this.form.username,
+                domain: this.form.domain,
                 access_token: data.token // eslint-disable-line
               }).then(() => {
                 this.$notify.success(this.$t('tips.initializeCompleted'))

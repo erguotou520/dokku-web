@@ -8,7 +8,9 @@
       <el-tab-pane :label="$t('app.tab.settings')" name="settings"></el-tab-pane>
     </el-tabs>
     <div class="hack-line"></div>
-    <router-view></router-view>
+    <div class="app-wrapper limit-width">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 <script>
@@ -40,4 +42,6 @@ export default {
     border-bottom 1px solid #d1dbe5
   .el-tabs__item
     padding 0 1.5rem
+  .app-wrapper
+    margin-top 1rem
 </style>

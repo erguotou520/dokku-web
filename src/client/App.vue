@@ -60,6 +60,15 @@ body
   box-sizing border-box*/
 a
   text-decoration none
+p
+  font-size 14px
+pre
+code
+  font-family "Source Code Pro", Consolas, Monaco, Menlo, monospace
+pre
+  padding 1rem
+  background-color $color-gray-exact-light
+  border-radius 4px
 #app-main
   min-height 100vh
   .app-container
