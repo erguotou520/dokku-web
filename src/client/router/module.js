@@ -29,14 +29,22 @@ export default [{
       import('../view/app/Deploy.vue').then(resolve)
     }
   }, {
-    path: 'activities',
+    path: 'activity',
     component: resolve => {
-      import('../view/app/Activities.vue').then(resolve)
+      import('../view/app/Activity.vue').then(resolve)
+    }
+  }, {
+    path: 'logs',
+    component: resolve => {
+      import('../view/app/Logs.vue').then(resolve)
     }
   }, {
     path: 'settings',
     component: resolve => {
       import('../view/app/Settings.vue').then(resolve)
     }
+  }, {
+    path: '/',
+    redirect: 'overview'
   }]
 }]

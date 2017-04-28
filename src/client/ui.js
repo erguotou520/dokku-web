@@ -1,11 +1,12 @@
 import Vue from 'vue'
-import { Dialog, Autocomplete, Dropdown, DropdownMenu, DropdownItem, Input, InputNumber,
+import { Alert, Dialog, Autocomplete, Dropdown, DropdownMenu, DropdownItem, Input, InputNumber,
   Radio, RadioGroup, RadioButton, Checkbox, CheckboxGroup, Switch, Select, Option,
   OptionGroup, Button, ButtonGroup, Table, TableColumn, DatePicker, TimeSelect, TimePicker,
   Popover, Tooltip, MessageBox, Breadcrumb, BreadcrumbItem, Form, FormItem, Tabs, TabPane,
   Tag, Tree, Notification, Slider, Loading, Row, Col, Upload, Progress, Spinner,
   Message, Badge, Card, Steps, Step } from 'element-ui'
 
+Vue.component(Alert.name, Alert)
 Vue.component(Dialog.name, Dialog)
 Vue.component(Autocomplete.name, Autocomplete)
 Vue.component(Dropdown.name, Dropdown)
@@ -67,3 +68,7 @@ try {
 } finally {
   //
 }
+
+// clipboard
+import VueClipboard from 'vue-clipboards'
+Vue.use(VueClipboard)

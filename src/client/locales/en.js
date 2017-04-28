@@ -1,6 +1,7 @@
 export default {
   title: 'Dokku web system',
   initialize: 'Initialize',
+  donate: 'Donate',
   tips: {
     initializeCompleted: 'Initialize completed',
     initializeFailed: 'Initialize failed'
@@ -32,6 +33,8 @@ export default {
     edit: 'Edit',
     update: 'Update',
     remove: 'Remove',
+    save: 'Save',
+    cancel: 'Cancel',
     multiRemove: 'Multi remove',
     operation: 'Operation',
     search: 'Search',
@@ -50,7 +53,9 @@ export default {
     updateFailed: 'Update failed',
     removed: 'Delete successed',
     removeFailed: 'Delete failed',
-    initializeFail: 'Initialize failed'
+    initializeFail: 'Initialize failed',
+    copied: 'Copied',
+    copyFailed: 'Copy failed'
   },
   http: {
     error: {

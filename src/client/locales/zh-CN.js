@@ -1,13 +1,15 @@
 export default {
   title: 'Dokku web system',
   initialize: '初始化',
+  donate: '打赏',
   tips: {
     initializeCompleted: '已完成初始化',
     initializeFailed: '初始化失败'
   },
   constant: {
     name: '名称',
-    desc: '描述'
+    desc: '描述',
+    warning: '警告'
   },
   confirm: {
     title: '提示',
@@ -36,6 +38,8 @@ export default {
     edit: '编辑',
     update: '更新',
     remove: '删除',
+    save: '保存',
+    cancel: '取消',
     multiRemove: '批量删除',
     operation: '操作',
     search: '搜索',
@@ -54,7 +58,9 @@ export default {
     updateFailed: '更新失败',
     removed: '删除成功',
     removeFailed: '删除失败',
-    initializeFail: '初始化失败'
+    initializeFail: '初始化失败',
+    copied: '已复制',
+    copyFailed: '复制出错'
   },
   http: {
     error: {

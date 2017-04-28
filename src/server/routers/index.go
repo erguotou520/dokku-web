@@ -58,12 +58,30 @@ func Setup(e *echo.Echo) {
 	apiG.DELETE("/apps/:name", destroyApp)
 	// operate app
 	apiG.PUT("/apps/ps/:name", actionApp)
+	// get app environments
+	apiG.GET("/apps/:name/envs", getEnvironment)
+	// add app environment
+	apiG.PUT("/apps/:name/addEnv", addEnvironment)
+	// unset app environment
+	apiG.PUT("/apps/:name/removeEnv", removeEnvironment)
+	// get app logs
+	apiG.GET("/apps/:name/logs", getAppLogs)
+	// get app git histories
+	apiG.GET("/apps/:name/git-logs", getAppActivities)
+	// deploy via tar upload
+	apiG.POST("/apps/:name/tar-deploy", deployTarApp)
 
 	// plugin apis
+	// get plugin list
+	apiG.GET("/plugins", getPlugins)
+	// get installed plugin list
+	apiG.GET("/installed-plugins", getInstalledPlugins)
 	// add a plugin
 	apiG.POST("/plugins", addPlugin)
 	// disable|enable|update a plugin
 	apiG.PUT("/plugins/:name", updatePlugin)
+	// toggle plugin status
+	apiG.PUT("/plugins/:name/status", togglePluginStatus)
 	// remove a plugin
 	apiG.DELETE("/plugins/:name", removePlugin)
 }

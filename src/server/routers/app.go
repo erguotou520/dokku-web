@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"fmt"
 	"github.com/labstack/echo"
 	"net/http"
 	"os/exec"
@@ -16,13 +17,6 @@ type Env struct {
 
 func (env Env) toString() string {
 	return env.Key + "=" + env.Value
-}
-
-// EnvForm env form model
-type EnvForm struct {
-	Name   string   `json:"name" form:"name"`
-	Envs   []Env    `json:"envs" form:"envs"`
-	Remove []string `json:"remove" form:"remove"`
 }
 
 // App app list struct
@@ -110,17 +104,21 @@ func renameApp(c echo.Context) error {
 		return c.NoContent(http.StatusBadRequest)
 	}
 	deployed, e := exec.Command(DokkuPath, "apps:report", name, "--status").Output()
+	fmt.Println(e)
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, e)
 	}
+	fmt.Println(string(deployed))
 	if string(deployed) == "not deployed" {
 		return c.JSON(http.StatusForbidden, "App not deployed.")
 	}
 	out, err := exec.Command(DokkuPath, "apps:rename", name, newName).Output()
+	fmt.Println(string(out))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 	done, _ := regexp.MatchString("done$", strings.TrimRight(string(out), "\r\n"))
+	fmt.Println(done)
 	if done {
 		return c.NoContent(http.StatusOK)
 	}
@@ -144,32 +142,56 @@ func actionApp(c echo.Context) error {
 	})
 }
 
+// get app environments
+func getEnvironment(c echo.Context) error {
+	name := c.Param("name")
+	out, err := exec.Command(DokkuPath, "--quiet", "config", name).Output()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+	sli := regexp.MustCompile(`\S+`).FindAllString(string(out), -1)
+	keyReg := regexp.MustCompile(`:$`)
+	envs := make([]Env, 0)
+	for i := 0; i < len(sli); i = i + 2 {
+		envs = append(envs, Env{keyReg.ReplaceAllString(sli[i], ""), sli[i+1]})
+	}
+	return c.JSON(http.StatusOK, envs)
+}
+
 // set env variables
-func configEnv(c echo.Context) error {
-	form := new(EnvForm)
-	if err := c.Bind(form); err != nil {
+func addEnvironment(c echo.Context) error {
+	name := c.Param("name")
+	env := new(Env)
+	if err := c.Bind(env); err != nil {
 		return c.NoContent(http.StatusBadRequest)
 	}
-	if form.Name == "" || (len(form.Envs) == 0 && len(form.Remove) == 0) {
-		return c.NoContent(http.StatusBadRequest)
-	}
-	// set envs
-	if len(form.Envs) > 0 {
-		str := " "
-		for _, env := range form.Envs {
-			str = str + env.toString() + " "
-		}
-		_, e := exec.Command(DokkuPath, "config:set", form.Name, str, "--no-restart").Output()
-		if e != nil {
-			return c.JSON(http.StatusInternalServerError, e)
-		}
-	}
-	// unset envs
-	if len(form.Remove) > 0 {
-		_, er := exec.Command(DokkuPath, "config:unset", form.Name, strings.Join(form.Remove, " "), "--no-restart").Output()
-		if er != nil {
-			return c.JSON(http.StatusInternalServerError, er)
-		}
+	_, e := exec.Command(DokkuPath, "config:set", "--no-restart", name, env.toString()).Output()
+	if e != nil {
+		return c.JSON(http.StatusInternalServerError, e)
 	}
 	return c.NoContent(http.StatusOK)
+}
+
+// unset env variables
+func removeEnvironment(c echo.Context) error {
+	name := c.Param("name")
+	key := c.FormValue("key")
+	if key == "" {
+		return c.NoContent(http.StatusBadRequest)
+	}
+	_, e := exec.Command(DokkuPath, "config:unset", "--no-restart", name, key).Output()
+	if e != nil {
+		return c.JSON(http.StatusInternalServerError, e)
+	}
+	return c.NoContent(http.StatusOK)
+}
+
+// get app logs
+func getAppLogs(c echo.Context) error {
+	name := c.Param("name")
+	out, e := exec.Command(DokkuPath, "logs", name).Output()
+	if e != nil {
+		return c.JSON(http.StatusInternalServerError, e)
+	}
+	return c.String(http.StatusOK, string(out))
 }

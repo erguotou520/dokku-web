@@ -11,7 +11,7 @@ import { sync } from 'vuex-router-sync'
 sync(store, router)
 
 // ui library
-import './element-ui'
+import './ui'
 // ajax
 import './http'
 

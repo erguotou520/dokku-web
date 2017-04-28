@@ -1,6 +1,10 @@
 <template>
   <svg version="1.1" :class="clazz" :role="label ? 'img' : 'presentation'" :aria-label="label" :x="x" :y="y" :width="width" :height="height" :view-box.camel="box" :style="style">
-    <slot><path v-if="icon" :d="icon.d" :fill="fill"/></slot>
+    <slot>
+      <template v-if="icon">
+        <path v-for="d in ds" :d="d" :fill="fill"/>
+      </template>
+    </slot>
   </svg>
 </template>
 
@@ -119,6 +123,9 @@ export default {
       return {
         fontSize: this.normalizedScale + 'em'
       }
+    },
+    ds () {
+      return this.icon ? (Array.isArray(this.icon.d) ? this.icon.d : [this.icon.d]) : []
     }
   },
   mounted () {

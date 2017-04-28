@@ -1,0 +1,292 @@
+official:
+  - name:  CouchDB
+    url: https://github.com/dokku/dokku-couchdb.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: couchdb
+    link: true
+  - name: Elasticsearch
+    url: https://github.com/dokku/dokku-elasticsearch.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: elasticsearch
+    link: true
+  - name: Graphite
+    url: https://github.com/dokku/dokku-graphite-grafana.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: graphite
+    link: true
+  - name: MariaDB
+    url: https://github.com/dokku/dokku-mariadb.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: mariadb
+    link: true
+  - name: Memcached
+    url: https://github.com/dokku/dokku-memcached.git.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: memcached
+    link: true
+  - name: Mongo
+    url: https://github.com/dokku/dokku-mongo.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: mongo
+    link: true
+  - name: MySQL
+    url: https://github.com/dokku/dokku-mysql.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: mysql
+    link: true
+  - name: Nats
+    url: https://github.com/dokku/dokku-nats.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: nats
+    link: true
+  - name: Postgres
+    url: https://github.com/dokku/dokku-postgres.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: postgres
+    link: true
+  - name: RabbitMQ
+    url: https://github.com/dokku/dokku-rabbitmq.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: rabbitmq
+    link: true
+  - name: Redis
+    url: https://github.com/dokku/dokku-redis.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: redis
+    link: true
+  - name: RethinkDB
+    url: https://github.com/dokku/dokku-rethinkdb.git
+    author: dokku
+    compatibility: 0.4.0+
+    cmd: rethinkdb
+    link: true
+community:
+  - name: MariaDB
+    url: https://github.com/Kloadut/dokku-md-plugin.git
+    author: Kloadut
+    compatibility: 0.3.x
+    cmd: mariadb
+    link: true
+  - name: MariaDB(single container)
+    url: https://github.com/ohardy/dokku-mariadb.git
+    author: ohardy
+    compatibility: 0.3.x
+    cmd: mariadb
+    link: true
+  - name: MariaDB(single container)
+    url: https://github.com/krisrang/dokku-mariadb.git
+    author: krisrang
+    compatibility: 0.3.26+
+    cmd: mariadb
+    link: false
+  - name: PostgreSQL
+    url: https://github.com/jlachowski/dokku-pg-plugin.git
+    author: jlachowski
+    compatibility: 0.3.x
+    cmd: postgresql
+    link: true
+  - name: PostgreSQL (single container)
+    url: https://github.com/ohardy/dokku-psql.git
+    author: ohardy
+    compatibility: 0.3.x
+    cmd: psql
+    link: true
+  - name: PostgreSQL (single container)
+    url: https://github.com/Flink/dokku-psql-single-container.git
+    author: Flink
+    compatibility: 0.3.26+
+    cmd: psql
+    link: true
+  - name: Nginx Cache
+    url: https://github.com/Aluxian/dokku-nginx-cache.git
+    author: Aluxian
+    compatibility: 0.5.0+
+    cmd: nginx-cache
+    link: false
+  - name: Redis (single container)
+    url: https://github.com/ohardy/dokku-redis.git
+    author: ohardy
+    compatibility: 0.3.x
+    cmd: redis
+    link: false
+  - name: Varnish
+    url: https://github.com/Zenedith/dokku-varnish-plugin.git
+    author: Zenedith
+    compatibility: 0.2.3+
+    cmd: varnish
+    link: false
+  - name: RabbitMQ
+    url: https://github.com/jlachowski/dokku-rabbitmq-plugin.git
+    author: jlachowski
+    compatibility: 0.3.x
+    cmd: rabbitmq
+    link: true
+  - name: RabbitMQ (single container)
+    url: https://github.com/jlachowski/dokku-rabbitmq-single-plugin.git
+    author: jlachowski
+    compatibility: 0.3.x
+    cmd: rabbitmq
+    link: false
+  - name: ElasticMQ (SQS compatible)
+    url: https://github.com/cu12/dokku-elasticmq.git
+    author: cu12
+    compatibility: 0.5.0+
+    cmd: elasticmq
+    link: true
+  - name: etcd
+    url: https://github.com/basgys/dokku-etcd.git
+    author: basgys
+    compatibility: 0.4.x
+    cmd: etcd
+    link: true
+  - name: FakeSNS
+    url: https://github.com/cu12/dokku-fake_sns.git
+    author: cu12
+    compatibility: 0.5.0+
+    cmd: fake_sns
+    link: true
+  - name: InfluxDB
+    url: https://github.com/basgys/dokku-influxdb.git
+    author: basgys
+    compatibility: 0.4.x
+    cmd: influxdb
+    link: true
+  - name: RethinkDB
+    url: https://github.com/stuartpb/dokku-rethinkdb-plugin.git
+    author: stuartpb
+    compatibility: 0.3.x
+    cmd: rethinkdb
+    link: false
+others:
+  - name: Airbrake deploy
+    url: https://github.com/Flink/dokku-airbrake-deploy.git
+    author: Flink
+    compatibility: 0.4.0+
+    link: false
+  - name: APT
+    url: https://github.com/F4-Group/dokku-apt.git
+    author: F4-Group
+    compatibility: 0.4.0+
+    link: false
+  - name: Bower install
+    url: https://github.com/alexanderbeletsky/dokku-bower-install.git
+    author: alexanderbeletsky
+    compatibility: 0.3.x
+    link: false
+  - name: Bower/Grunt
+    url: https://github.com/thrashr888/dokku-bower-grunt-build-plugin.git
+    author: thrashr888
+    compatibility: 0.3.x
+    link: false
+  - name: Bower/Gulp
+    url: https://github.com/gdi2290/dokku-bower-gulp-build-plugin.git
+    author: gdi2290
+    compatibility: 0.3.x
+    link: false
+  - name: Bower/Gulp
+    url: https://github.com/jagandecapri/dokku-bower-gulp-build-plugin.git
+    author: jagandecapri
+    compatibility: 0.3.x
+    link: false
+  - name: "Builders: bower, compass, gulp, grunt"
+    url: https://github.com/ignlg/dokku-builders-plugin.git
+    author: ignlg
+    compatibility: 0.4.0+
+    cmd: builders
+    link: false
+  - name: Chef cookbook
+    url: https://github.com/nickcharlton/dokku-cookbook.git
+    author: nickcharlton
+    link: false
+  - name: Docker auto persist volumes
+    url: https://github.com/Flink/dokku-docker-auto-volumes.git
+    author: Flink
+    compatibility: 0.4.0+
+    link: false
+  - name: Hostname
+    url: https://github.com/michaelshobbs/dokku-hostname.git
+    author: michaelshobbs
+    compatibility: 0.4.0+
+    cmd: dokku-hostname
+    link: false
+  - name: Logspout
+    url: https://github.com/michaelshobbs/dokku-logspout.git
+    author: michaelshobbs
+    compatibility: 0.4.0+
+    link: false
+  - name: Long Timeout
+    url: https://github.com/investtools/dokku-long-timeout-plugin.git
+    author: investtools
+    compatibility: 0.4.0+
+    link: false
+  - name: Monit
+    url: https://github.com/cjblomqvist/dokku-monit.git
+    author: cjblomqvist
+    compatibility: 0.3.x
+    link: false
+  - name: Monorepo
+    url: https://github.com/iamale/dokku-monorepo.git
+    author: iamale
+    compatibility: 0.4.0+
+    link: false
+  - name: Node
+    url: https://github.com/ademuk/dokku-nodejs.git
+    author: ademuk
+    compatibility: 0.3.x
+    link: false
+  - name: Node
+    url: https://github.com/pnegahdar/dokku-node.git
+    author: pnegahdar
+    compatibility: 0.3.x
+    link: false
+  - name: Rollbar
+    url: https://github.com/iloveitaly/dokku-rollbar.git
+    author: iloveitaly
+    compatibility: 0.5.0+
+    link: false
+  - name: Slack Notifications
+    url: https://github.com/ribot/dokku-slack.git
+    author: ribot
+    compatibility: 0.4.0+
+    link: false
+  - name: Tor
+    url: https://github.com/michaelshobbs/dokku-tor.git
+    author: michaelshobbs
+    compatibility: 0.4.0+
+    link: false
+  - name: User ACL
+    url: https://github.com/dokku-community/dokku-acl.git
+    author: Maciej Łebkowski
+    compatibility: 0.4.0+
+    link: false
+  - name: Webhooks
+    url: https://github.com/nickstenning/dokku-webhooks.git
+    author: nickstenning
+    compatibility: 0.3.x
+    link: false
+  - name: Wkhtmltopdf
+    url: https://github.com/mbriskar/dokku-wkhtmltopdf.git
+    author: mbriskar
+    compatibility: 0.4.0+
+    link: false
+  - name: Dokku Wordpress
+    url: https://github.com/dokku-community/dokku-wordpress.git
+    author: dokku-community
+    compatibility: 0.4.0+
+    link: false
+  - name: Access
+    url: https://github.com/mainto/dokku-access.git
+    author: mainto
+    compatibility: 0.4.0+
+    link: false

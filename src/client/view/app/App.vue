@@ -4,7 +4,7 @@
       <el-tab-pane :label="$t('app.tab.overview')" name="overview"></el-tab-pane>
       <el-tab-pane :label="$t('app.tab.resources')" name="resources"></el-tab-pane>
       <el-tab-pane :label="$t('app.tab.deploy')" name="deploy"></el-tab-pane>
-      <el-tab-pane :label="$t('app.tab.activities')" name="activities"></el-tab-pane>
+      <el-tab-pane :label="$t('app.tab.activity')" name="activity"></el-tab-pane>
       <el-tab-pane :label="$t('app.tab.settings')" name="settings"></el-tab-pane>
     </el-tabs>
     <div class="hack-line"></div>
@@ -44,4 +44,7 @@ export default {
     padding 0 1.5rem
   .app-wrapper
     margin-top 1rem
+  h4
+    margin 0
+    line-height 2.25rem
 </style>

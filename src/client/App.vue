@@ -32,8 +32,7 @@ export default {
 <style lang="stylus">
 @import "assets/css/variable"
 @import "assets/css/animate"
-@import "assets/fonts/iconfont.css"
-@import "assets/css/flex"
+@import '~vtc/stylus/flex.styl'
 ::-webkit-scrollbar
   width 4px
   height 4px
@@ -69,6 +68,13 @@ pre
   padding 1rem
   background-color $color-gray-exact-light
   border-radius 4px
+code
+  padding 2px
+  background-color $color-gray-exact-light
+  color #666
+  border 1px solid $color-gray-light
+  border-radius 3px
+  font-size 12px
 #app-main
   min-height 100vh
   .app-container
@@ -84,4 +90,10 @@ pre
   margin 0 auto
 .el-dropdown-link
   cursor pointer
+.t-l
+  text-align left
+.t-c
+  text-align center
+.t-r
+  text-align right
 </style>
