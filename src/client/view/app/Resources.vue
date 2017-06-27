@@ -2,10 +2,13 @@
   <div class="m-app-resources flex flex-column flex-main-center">
     <el-alert class="plugin-tip" :title="$t('app.resources.tip')" type="info"></el-alert>
     <p>{{$t('app.plugin')}}</p>
-    <el-autocomplete v-model="search" icon="search" style="width:100%"
-      :fetch-suggestions="querySearch" :placeholder="$t('app.resources.searchTip')"
-      :trigger-on-focus="false" @select="handleSelect" custom-item="plugin-item">
-    </el-autocomplete>
+    <div class="flex">
+      <el-autocomplete v-model="search" icon="search" class="flex-1"
+        :fetch-suggestions="querySearch" :placeholder="$t('app.resources.searchTip')"
+        :trigger-on-focus="false" @select="handleSelect" custom-item="plugin-item">
+      </el-autocomplete>
+      <el-button type="primary" v-if="selectedPlugin" @click="install" style="margin-left:1rem">{{$t('app.resources.install')}}</el-button>
+    </div>
     <el-table :data="installed" border :empty-text="$t('app.resources.empty')" style="margin-top:1rem;width: 100%">
       <el-table-column align="center" :label="$t('app.resources.plugin.name')" prop="name"></el-table-column>
       <el-table-column align="center" :label="$t('app.resources.plugin.version')" prop="version"></el-table-column>
@@ -22,6 +25,11 @@
           <el-button v-if="scope.row.author==='dokku'" @click="create(scope.row)" type="text" size="small">{{$t('operation.create')}}</el-button>
           <el-button v-if="scope.row.author==='dokku'" @click="link(scope.row)" type="text" size="small">{{$t('app.resources.link')}}</el-button>
           <el-button v-if="scope.row.author==='dokku'" @click="unlink(scope.row)" type="text" size="small">{{$t('app.resources.unlink')}}</el-button>
+          <el-popover placement="top" width="160">
+            <el-button size="mini" type="text">取消</el-button>
+            <el-button type="primary" size="mini" @click="uninstall(scope.row)">确定</el-button>
+            <el-button slot="reference" v-if="scope.row.author==='dokku'" type="text" size="small">{{$t('app.resources.uninstall')}}</el-button>
+          </el-popover>
         </template>
       </el-table-column>
     </el-table>
@@ -94,8 +102,19 @@ export default {
     }
   },
   methods: {
+    fetch () {
+      res.getInstalled().then(data => {
+        this.installed = data.data
+      }).catch(() => {})
+    },
+    install () {
+      res.save(null, { url: this.selectedPlugin.url }).then(() => {
+        this.$message.success(this.$t('app.resources.installSuccess'))
+        this.fetch()
+      })
+    },
     toggleStatus (plugin) {
-      res.togglePluginStatus({ name: this.$route.params.name }, {
+      res.togglePluginStatus({ name: plugin.name }, {
         action: plugin.enabled ? 'disable' : 'enable'
       }).then(data => {
         if (data.data) {
@@ -126,18 +145,25 @@ export default {
           this.search = ''
           this.selectedPlugin = null
         }).catch(() => {
-          this.$message.success(this.$t('app.resources.linkFailed', this.selectedPlugin.name))
+          this.$message.error(this.$t('app.resources.linkFailed', this.selectedPlugin.name))
         })
       }
+    },
+    uninstall (plugin) {
+      const nameObj = { name: plugin.name }
+      res.remove(nameObj).then(() => {
+        this.$message.success(this.$t('app.resources.uninstallSuccess', nameObj))
+        this.plugins.splice(this.plugins.indexOf(plugin), 1)
+      }).catch(() => {
+        this.$message.error(this.$t('app.resources.uninstallFailed', nameObj))
+      })
     }
   },
   created () {
     res.query().then(data => {
       merge(this.plugins, data.data)
     }).catch(() => {})
-    res.getInstalled().then(data => {
-      this.installed = data.data
-    }).catch(() => {})
+    this.fetch()
   }
 }
 </script>

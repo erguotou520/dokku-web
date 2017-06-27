@@ -20,8 +20,12 @@ export default {
       searchTip: '搜索插件',
       link: '关联',
       unlink: '解除关联',
+      install: '安装插件',
+      uninstall: '卸载',
       linkSuccess: '已关联{name}插件',
       linkFailed: '关联{name}插件失败',
+      uninstallSuccess: '已卸载{name}插件',
+      uninstallFailed: '卸载{name}插件失败',
       empty: '暂时没有安装插件哦',
       toggleFailed: '切换状态失败',
       plugin: {

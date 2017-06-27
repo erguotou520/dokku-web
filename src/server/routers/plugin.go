@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"fmt"
 	"github.com/labstack/echo"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
@@ -120,12 +121,14 @@ func updatePlugin(c echo.Context) error {
 
 // toggle plugin enabled status
 func togglePluginStatus(c echo.Context) error {
-	plugin := c.Param("plugin")
+	plugin := c.Param("name")
 	action := c.FormValue("action")
 	if action == "" || (action != "enable" && action != "disable") {
 		return c.NoContent(http.StatusBadRequest)
 	}
+	fmt.Println("1", action, plugin)
 	out, err := exec.Command(DokkuPath, "plugin:"+action, plugin).Output()
+	fmt.Println("2", string(out), err)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}

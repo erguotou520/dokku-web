@@ -16,5 +16,5 @@ export const app = Vue.resource('apps{/name}', {}, {
 // plugin api
 export const plugin = Vue.resource('plugins{/name}', {}, {
   getInstalled: { method: 'GET', url: 'installed-plugins' },
-  togglePluginStatus: { method: 'PUT', url: '/plugins{/name}/status' }
+  togglePluginStatus: { method: 'PUT', url: 'plugins{/name}/status' }
 })
